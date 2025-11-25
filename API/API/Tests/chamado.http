@@ -1,10 +1,23 @@
-### Listar todas as tarefas
+### Listar todos os chamados
 GET http://localhost:5000/api/chamado/listar
 
-### Cadastrar uma nova tarefa
+### Cadastrar uma novo chamado
 POST http://localhost:5000/api/chamado/cadastrar
 Content-Type: application/json
 
 {
-    "descricao": "Trocar memórias"
+    "id": 3,
+    "descricao": "Trocar teclado",
+    "status": "Em atendimento"
 }
+
+### Chamados Alterar
+PUT http://localhost:5000/chamado/alterar/{id}
+
+### Chamados Resolvidos
+GET http://localhost:5000/chamado/resolvidos
+
+### Chamados Não Resolvidos
+GET http://localhost:5000/chamado/naoresolvidos
+
+
