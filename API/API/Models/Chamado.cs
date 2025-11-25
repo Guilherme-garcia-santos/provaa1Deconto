@@ -1,5 +1,5 @@
 ﻿namespace API.Models;
-
+//teste envio commit
 public class Chamado
 {
     public string ChamadoId { get; set; } = Guid.NewGuid().ToString();
