@@ -59,5 +59,5 @@ function CadastrarChamados() {
     </div>
   );
 } // <--- A chave que fecha a função fica SÓ AQUI
-
+//teste comit front
 export default CadastrarChamados;
