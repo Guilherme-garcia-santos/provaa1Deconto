@@ -1,19 +1,17 @@
 import { useEffect, useState } from "react";
 import { Chamado } from "../models/chamado";
-import axios from "axios";
 
 function ChamadoResolvido() {
- 
+  // 1. ESTADOS E VARIÁVEIS (DENTRO da função, mas ANTES do return)
   const [chamados, setChamados] = useState<Chamado[]>([]);
 
- 
-   useEffect(() => {
-    carregarChamados(); 
+  // 2. EFEITOS (useEffect)
+  useEffect(() => {
+    carregarChamados(); // Chamada corrigida para o nome correto da função
   }, []);
 
   // 3. FUNÇÕES
-
-     function carregarChamados() {
+  function carregarChamados() {
     fetch("http://localhost:5000/chamado/resolvidos")
       .then((resposta) => resposta.json())
       .then((chamados: Chamado[]) => {
@@ -22,11 +20,10 @@ function ChamadoResolvido() {
       });
   }
 
-}
-
+  // 4. RENDERIZAÇÃO (O que aparece na tela)
   return (
     <div>
-      <h1>Listar Tarefas</h1>
+      <h1>Listar Chamados Resolvidos</h1>
       <table border = {1}>
         <thead>
           <tr>
@@ -35,7 +32,6 @@ function ChamadoResolvido() {
             <th>Descrição</th>
             <th>Status</th>
             <th>Criado em</th>
-            <th>Alterar Status</th>
 
 
           </tr>
@@ -47,12 +43,11 @@ function ChamadoResolvido() {
               <td>{chamado.Descricao}</td>
               <td>{chamado.status}</td>
               <td>{chamado.CriadoEm}</td>
-            
+              
+
             </tr>
           ))}
         </tbody>
-
-
       </table>
     </div>
   );
