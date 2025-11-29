@@ -1,8 +1,6 @@
-export interface Chamado { 
-
-    ChamadoId : string;
-    Descricao? : string;
-    CriadoEm : string;
-    status? : string;
-
+export default interface Chamado {
+  chamadoId?: string;
+  descricao: string;
+  criadoEm?: string;
+  status?: string;
 }

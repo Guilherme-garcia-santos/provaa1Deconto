@@ -1,6 +1,6 @@
 
 import { useEffect, useState } from "react";
-import { Chamado } from "../models/chamado";
+import Chamado from "../../models/Chamado";
 import axios from "axios";
 
 function ListarChamados() {
@@ -9,39 +9,45 @@ function ListarChamados() {
 
   // 2. EFEITOS (useEffect)
   useEffect(() => {
-    carregarChamados(); // Chamada corrigida para o nome correto da função
+    ListarChamados(); // Chamada corrigida para o nome correto da função
   }, []);
 
   // 3. FUNÇÕES
-  function carregarChamados() {
-    fetch("http://localhost:5000/api/chamado/listar")
-      .then((resposta) => resposta.json())
-      .then((chamados: Chamado[]) => {
-        console.table(chamados);
-        setChamados(chamados);
-      });
+async function listarChamadosAPI() {
+  try {
+    const resposta = await axios.get<Chamado[]>(
+      "http://localhost:5000/api/chamado/listar"
+    );
+    const dados = resposta.data;
+    setChamados(dados);
+  } catch (error) {
+    console.log("Erro na requisição: " + error);
   }
+}
 
-  function alterar(id: string) {
-  console.log(`Id: ${id}`);
-  axios
-  
-    .put<Chamado[]>(`http://localhost:5000/chamado/alterar/${id}`)
-    .then((resposta) => {
-    setChamados(resposta.data);
-    });
+function alterarChamado(id: string) {
+  alterarChamadoAPI(id);
+}
 
+async function alterarChamadoAPI(id: string) {
+  try {
+    const resposta = await axios.put(
+      `http://localhost:5190/api/chamado/alterar/${id}`
+    );
+    listarChamadosAPI();
+  } catch (error) {
+    console.log(error);
+  }
 }
 
   // 4. RENDERIZAÇÃO (O que aparece na tela)
   return (
     <div>
-      <h1>Listar Tarefas</h1>
+      <h1>Listar Chamados</h1>
       <table border = {1}>
         <thead>
           <tr>
             <th>#</th>
-            <th>Titulo</th>
             <th>Descrição</th>
             <th>Status</th>
             <th>Criado em</th>
@@ -52,7 +58,7 @@ function ListarChamados() {
         </thead>
         <tbody>
           {chamados.map((chamado) => (
-             <tr>
+             <tr key={chamado.ChamadoId}>
             <th>#</th>
             <th>Titulo</th>
             <th>Descrição</th>
@@ -61,7 +67,7 @@ function ListarChamados() {
               
               <td>
                 <button onClick={() => 
-                  alterar(chamado.ChamadoId!)}>
+                  alterarchamado(chamado.ChamadoId!)}>
                   Alterar
                 </button>
               </td> 
